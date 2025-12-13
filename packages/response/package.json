@@ -1,0 +1,12 @@
+{
+  "name": "@repo/response",
+  "version": "1.0.0",
+  "main": "src/response.ts",
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "typescript": "^5.9.3"
+  }
+}
