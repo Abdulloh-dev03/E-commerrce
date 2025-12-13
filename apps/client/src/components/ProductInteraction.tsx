@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { Button } from "./ui/button";
 import { RiShoppingBag3Fill } from "react-icons/ri";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const ProductInteraction = ({
   product,
@@ -27,6 +28,7 @@ const ProductInteraction = ({
 }) => {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCartStore();
+  const router = useRouter();
 
   const handleQuantityChange = (type: "increment" | "decrement") => {
     if (type === "increment") {
@@ -46,8 +48,18 @@ const ProductInteraction = ({
     toast.success("Added to cart");
   };
 
- 
-
+  const handleBuyNow = () => {
+    // Add to cart
+    addToCart({
+      ...product,
+      quantity,
+      selectedColor,
+      selectedAttributes,
+    });
+    toast.success("Proceeding to checkout");
+    // Navigate to cart page
+    router.push("/cart");
+  };
 
   return (
     <div className="w-full rounded-2xl border border-gray-200 dark:border-stone-800 bg-white dark:bg-zinc-900 p-6 shadow-md flex flex-col gap-6 transition-all duration-300">
@@ -74,14 +86,19 @@ const ProductInteraction = ({
         {variants && variants.length > 0 && (
           <div className="flex items-center gap-3">
             {variants.map((v, idx) => {
-              const thumb = Array.isArray(v.images) && v.images.length > 0 ? v.images[0] : "/placeholder.svg";
+              const thumb =
+                Array.isArray(v.images) && v.images.length > 0
+                  ? v.images[0]
+                  : "/placeholder.svg";
               const selected = idx === selectedVariantIndex;
               return (
                 <button
                   key={v.id ?? idx}
                   onClick={() => onSelectVariant(idx)}
                   className={`border rounded-xl overflow-hidden w-[64px] h-[64px] transition-all cursor-pointer ${
-                    selected ? "border-gray-900" : "border-gray-300 hover:border-gray-500"
+                    selected
+                      ? "border-gray-900"
+                      : "border-gray-300 hover:border-gray-500"
                   }`}
                   aria-label={`Select variant ${v.color}`}
                 >
@@ -99,7 +116,6 @@ const ProductInteraction = ({
             })}
           </div>
         )}
-
       </div>
 
       {/* ACTION BUTTONS */}
@@ -108,7 +124,11 @@ const ProductInteraction = ({
         Add to Cart
       </Button>
 
-      <Button variant={"outline"} className="cursor-pointer">
+      <Button
+        variant={"outline"}
+        className="cursor-pointer"
+        onClick={handleBuyNow}
+      >
         <RiShoppingBag3Fill className="w-4 h-4" />
         Buy this Item
       </Button>
