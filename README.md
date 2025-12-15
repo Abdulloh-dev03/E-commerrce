@@ -285,16 +285,6 @@ pnpm db:deploy        # Deploy migrations to production
 
 ## 🌐 Live Deployment
 
-### 🚀 Production URLs
-
-| Service             | URL                        | Status  |
-| ------------------- | -------------------------- | ------- |
-| **Client App**      | [🔗 Add Your Link Here](#) | 🟢 Live |
-| **Admin Dashboard** | [🔗 Add Your Link Here](#) | 🟢 Live |
-| **API Gateway**     | [🔗 Add Your Link Here](#) | 🟢 Live |
-
-> **Note**: Replace the placeholder links above with your actual deployment URLs once deployed.
-
 ### Deployment Platforms
 
 This project can be deployed on:
